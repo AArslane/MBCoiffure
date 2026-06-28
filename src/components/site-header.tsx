@@ -35,7 +35,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <a
-            href="#reservation"
+            href="#services"
             className="inline-flex h-11 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-transform active:scale-[0.98]"
           >
             Réserver
@@ -67,7 +67,7 @@ export function SiteHeader() {
               </a>
             ))}
             <a
-              href="#reservation"
+              href="#services"
               onClick={() => setOpen(false)}
               className="mt-3 mb-3 inline-flex h-12 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground active:scale-[0.98]"
             >

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Booking } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
 import { Services } from "@/components/services";
 import { SiteHeader } from "@/components/site-header";
@@ -52,7 +51,7 @@ export default function Home() {
           title="Réservez votre coupe en ligne."
           subtitle="Coiffeur barbier à Toulouse, ouvert tous les jours. Dégradés nets, barbe au cordeau, finitions soignées — choisissez votre créneau en quelques secondes."
           primaryButtonText="Réserver en ligne"
-          primaryButtonHref="#reservation"
+          primaryButtonHref="#services"
           secondaryButtonText="Nos prestations"
           secondaryButtonHref="#services"
           imageUrl="https://picsum.photos/seed/am-mb-hero/2000/1300?grayscale"
@@ -121,7 +120,7 @@ export default function Home() {
 
                 <div className="mt-6 flex flex-wrap gap-3 pt-1">
                   <a
-                    href="#reservation"
+                    href="#services"
                     className="inline-flex h-11 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-transform active:scale-[0.98]"
                   >
                     Réserver
@@ -141,26 +140,8 @@ export default function Home() {
           </Reveal>
         </section>
 
-        {/* Services */}
+        {/* Services + Réservation */}
         <Services />
-
-        {/* Réservation */}
-        <section id="reservation" className="mx-auto w-full max-w-6xl scroll-mt-20 px-5 py-24 sm:px-8 sm:py-32">
-          <Reveal className="max-w-2xl">
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-brand">Réservation</p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Choisissez votre créneau.
-            </h2>
-            <p className="mt-4 text-sm text-muted-foreground md:text-base">
-              Sélectionnez le jour et l&apos;heure qui vous arrangent. Vous recevez
-              une confirmation immédiate — pas d&apos;attente, pas d&apos;appel.
-            </p>
-          </Reveal>
-
-          <Reveal className="mt-12">
-            <Booking />
-          </Reveal>
-        </section>
 
         {/* Avis */}
         <section id="avis" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
@@ -228,7 +209,7 @@ export default function Home() {
             <Reveal delay={100}>
               <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                 <a
-                  href="#reservation"
+                  href="#services"
                   className="inline-flex h-12 items-center rounded-md bg-background px-6 text-sm font-medium text-foreground transition-transform active:scale-[0.98]"
                 >
                   Réserver en ligne

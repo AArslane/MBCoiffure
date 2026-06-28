@@ -5,6 +5,7 @@ import { Plus, ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { BorderTrail } from '@/components/ui/border-trail';
+import { Booking } from '@/components/booking';
 import { cn } from '@/lib/utils';
 import { SERVICES } from '@/lib/site';
 
@@ -107,7 +108,7 @@ export function Services() {
                       variant={featured ? 'default' : 'outline'}
                       asChild
                     >
-                      <a href="#reservation">Réserver</a>
+                      <a href="#services">Réserver</a>
                     </Button>
                   </div>
                 );
@@ -120,6 +121,16 @@ export function Services() {
             </div>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <Booking />
+        </motion.div>
       </div>
     </section>
   );
