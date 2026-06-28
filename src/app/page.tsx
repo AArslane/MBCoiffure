@@ -1,10 +1,14 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Reveal } from "@/components/reveal";
 import { Services } from "@/components/services";
 import { SiteHeader } from "@/components/site-header";
+import { StructuredData } from "@/components/structured-data";
 import { HeroSection } from "@/components/ui/hero-section-4";
 import {
+  AREA,
   BRAND,
+  FAQ,
   GALLERY,
   LOCATIONS,
   PHONE,
@@ -37,24 +41,34 @@ function ArrowUpRight({ className = "" }: { className?: string }) {
   );
 }
 
+function Chevron({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={className} fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 const salon = LOCATIONS[0];
 
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col bg-background text-foreground font-sans">
+      <StructuredData />
       {/* Header */}
       <SiteHeader />
 
       <main id="top" className="flex flex-1 flex-col">
         {/* Hero */}
         <HeroSection
-          title="Réservez votre coupe en ligne."
-          subtitle="Coiffeur barbier à Toulouse, ouvert tous les jours. Dégradés nets, barbe au cordeau, finitions soignées — choisissez votre créneau en quelques secondes."
+          title="Coiffeur & barbier à Toulouse, ouvert 7j/7"
+          subtitle="Dégradés nets, barbe au cordeau, finitions soignées. Réservez votre créneau en ligne en quelques secondes — paiement en salon."
           primaryButtonText="Réserver en ligne"
           primaryButtonHref="#services"
           secondaryButtonText="Nos prestations"
           secondaryButtonHref="#services"
           imageUrl="https://picsum.photos/seed/am-mb-hero/2000/1300?grayscale"
+          imageAlt="Salon Coiffeur MB 31 — coiffeur barbier à Toulouse"
         />
 
         {/* Stats strip */}
@@ -81,6 +95,9 @@ export default function Home() {
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
               Une adresse, un vrai soin du détail.
             </h2>
+            <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+              {AREA}
+            </p>
           </Reveal>
 
           <Reveal className="mt-14">
@@ -171,6 +188,50 @@ export default function Home() {
                 </figure>
               </Reveal>
             ))}
+          </div>
+
+          <Reveal className="mt-10 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+            <span className="text-muted-foreground">Vous êtes déjà venu ?</span>
+            <a
+              href={salon.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-medium hover:text-brand"
+            >
+              Laisser un avis Google
+              <ArrowUpRight className="size-3.5" />
+            </a>
+          </Reveal>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="border-t border-border">
+          <div className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+            <Reveal className="max-w-2xl">
+              <p className="font-mono text-xs uppercase tracking-[0.18em] text-brand">
+                Questions fréquentes
+              </p>
+              <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+                Vous vous demandez peut-être…
+              </h2>
+            </Reveal>
+
+            <Reveal className="mt-14 border-y border-border">
+              {FAQ.map((item) => (
+                <details
+                  key={item.question}
+                  className="group border-b border-border last:border-b-0"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-medium tracking-tight [&::-webkit-details-marker]:hidden">
+                    {item.question}
+                    <Chevron className="size-5 shrink-0 text-muted-foreground transition-transform duration-300 group-open:rotate-180" />
+                  </summary>
+                  <p className="pb-6 text-sm leading-relaxed text-muted-foreground sm:max-w-3xl">
+                    {item.answer}
+                  </p>
+                </details>
+              ))}
+            </Reveal>
           </div>
         </section>
 
@@ -264,10 +325,17 @@ export default function Home() {
           </div>
         </div>
         <div className="border-t border-border">
-          <div className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8">
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} {BRAND.name} — Toulouse. Site de démonstration.
+              © {new Date().getFullYear()} {BRAND.name} — Coiffeur barbier à Toulouse,
+              2 Chemin de Nicol, 31200 Toulouse.
             </p>
+            <Link
+              href="/mentions-legales"
+              className="text-xs text-muted-foreground transition-colors hover:text-brand"
+            >
+              Mentions légales
+            </Link>
           </div>
         </div>
       </footer>

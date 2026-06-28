@@ -3,6 +3,7 @@
 // components/ui/hero-section-4.tsx
 
 import * as React from "react";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { cn } from "@/lib/utils"; // Assuming you have a `cn` utility
 import { Button } from "@/components/ui/button"; // Assuming shadcn Button component
@@ -16,21 +17,12 @@ interface HeroSectionProps extends React.HTMLAttributes<HTMLDivElement> {
   secondaryButtonText: string;
   secondaryButtonHref: string;
   imageUrl: string;
+  imageAlt?: string;
 }
 
-// Animation variants for the container to orchestrate staggered animations
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-// Animation variants for child elements (text and buttons)
+// Gentle fade-up for the supporting copy and buttons. The H1 is intentionally
+// left out so it paints immediately (it is the LCP element and must not be
+// gated behind hydration).
 const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
@@ -39,6 +31,17 @@ const itemVariants: Variants = {
     transition: {
       duration: 0.5,
       ease: "easeInOut",
+    },
+  },
+};
+
+const containerVariants: Variants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
     },
   },
 };
@@ -54,6 +57,7 @@ const HeroSection = React.forwardRef<HTMLDivElement, HeroSectionProps>(
       secondaryButtonText,
       secondaryButtonHref,
       imageUrl,
+      imageAlt = "Salon de coiffure MB 31 à Toulouse",
       ...props
     },
     ref
@@ -67,57 +71,63 @@ const HeroSection = React.forwardRef<HTMLDivElement, HeroSectionProps>(
         )}
         {...props}
       >
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 z-[-1] bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${imageUrl})` }}
-          aria-hidden="true"
-        />
+        {/* Background image — the LCP element. Optimized and preload-scanned via
+            next/image with priority, instead of an un-discoverable CSS url(). */}
+        <div className="absolute inset-0">
+          <Image
+            src={imageUrl}
+            alt={imageAlt}
+            fill
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
 
-        {/* Optional: Add a subtle overlay for better text readability */}
-        <div className="absolute inset-0 z-0 bg-black/40" aria-hidden="true" />
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 z-[1] bg-black/40" aria-hidden="true" />
 
         {/* Content Container */}
-        <motion.div
-          className="z-10 flex max-w-4xl flex-col items-center justify-center px-5 text-center text-white"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Animated Title */}
-          <motion.h1
-            className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
-            variants={itemVariants}
-          >
+        <div className="relative z-10 flex max-w-4xl flex-col items-center justify-center px-5 text-center text-white">
+          {/* Title renders immediately — no opacity/transform gate (LCP-safe). */}
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             {title}
-          </motion.h1>
+          </h1>
 
-          {/* Animated Subtitle */}
-          <motion.p
-            className="mt-6 max-w-2xl text-lg leading-8 md:text-xl"
-            variants={itemVariants}
-          >
-            {subtitle}
-          </motion.p>
-
-          {/* Animated Button Group */}
           <motion.div
-            className="mt-10 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-x-6"
-            variants={itemVariants}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col items-center"
           >
-            <Button asChild size="lg" className="h-12 w-full text-base sm:h-11 sm:w-auto">
-              <a href={primaryButtonHref}>{primaryButtonText}</a>
-            </Button>
-            <Button
-              asChild
-              variant="secondary"
-              size="lg"
-              className="h-12 w-full text-base sm:h-11 sm:w-auto"
+            {/* Animated Subtitle */}
+            <motion.p
+              className="mt-6 max-w-2xl text-lg leading-8 md:text-xl"
+              variants={itemVariants}
             >
-              <a href={secondaryButtonHref}>{secondaryButtonText}</a>
-            </Button>
+              {subtitle}
+            </motion.p>
+
+            {/* Animated Button Group */}
+            <motion.div
+              className="mt-10 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-x-6"
+              variants={itemVariants}
+            >
+              <Button asChild size="lg" className="h-12 w-full text-base sm:h-11 sm:w-auto">
+                <a href={primaryButtonHref}>{primaryButtonText}</a>
+              </Button>
+              <Button
+                asChild
+                variant="secondary"
+                size="lg"
+                className="h-12 w-full text-base sm:h-11 sm:w-auto"
+              >
+                <a href={secondaryButtonHref}>{secondaryButtonText}</a>
+              </Button>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </section>
     );
   }

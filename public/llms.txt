@@ -1,0 +1,21 @@
+# Coiffeur MB 31
+
+Coiffeur barbier à Toulouse (31200), ouvert tous les jours de 10h à 20h, dimanche compris.
+
+## Services
+- Coiffure + barbe : 25 €
+- Coiffure (coupe homme) : 20 €
+- Barbe : 10 €
+
+## Coordonnées
+- Adresse : 2 Chemin de Nicol, 31200 Toulouse (quartiers Roseraie / Croix-Daurade, est de Toulouse)
+- Téléphone : 07 69 63 23 77
+- Horaires : Lundi–Dimanche, 10h–20h (7j/7)
+- Note Google : 4,8/5 (54 avis)
+- Réservation : en ligne sur https://mb-coiffure.vercel.app — paiement au salon
+
+## À propos
+Coiffeur MB 31 est un salon de coiffure et barbier situé dans l'est de Toulouse,
+à quelques minutes à pied de la station de métro Roseraie (ligne A). Spécialités :
+dégradés nets, coupes homme sur mesure, taille et entretien de la barbe au rasoir.
+Réservation en ligne en quelques secondes, paiement en salon.

@@ -108,7 +108,7 @@ export function Services() {
                     </p>
 
                     <div className="mt-6 font-mono text-3xl font-semibold tracking-tight">
-                      {service.price}
+                      {service.priceEUR} €
                     </div>
 
                     <Button
