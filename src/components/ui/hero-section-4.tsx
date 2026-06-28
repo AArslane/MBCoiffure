@@ -101,11 +101,19 @@ const HeroSection = React.forwardRef<HTMLDivElement, HeroSectionProps>(
           </motion.p>
 
           {/* Animated Button Group */}
-          <motion.div className="mt-10 flex items-center gap-x-6" variants={itemVariants}>
-            <Button asChild size="lg">
+          <motion.div
+            className="mt-10 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-x-6"
+            variants={itemVariants}
+          >
+            <Button asChild size="lg" className="h-12 w-full text-base sm:h-11 sm:w-auto">
               <a href={primaryButtonHref}>{primaryButtonText}</a>
             </Button>
-            <Button asChild variant="secondary" size="lg">
+            <Button
+              asChild
+              variant="secondary"
+              size="lg"
+              className="h-12 w-full text-base sm:h-11 sm:w-auto"
+            >
               <a href={secondaryButtonHref}>{secondaryButtonText}</a>
             </Button>
           </motion.div>

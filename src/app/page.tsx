@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "@/components/reveal";
 import { Services } from "@/components/services";
+import { SiteHeader } from "@/components/site-header";
 import { HeroSection } from "@/components/ui/hero-section-4";
 import {
   BRAND,
@@ -10,13 +11,6 @@ import {
   PHONE_HREF,
   TESTIMONIALS,
 } from "@/lib/site";
-
-const NAV = [
-  { href: "#salons", label: "Salons" },
-  { href: "#services", label: "Prestations" },
-  { href: "#avis", label: "Avis" },
-  { href: "#contact", label: "Contact" },
-];
 
 function Star({ className = "" }: { className?: string }) {
   return (
@@ -49,26 +43,7 @@ export default function Home() {
   return (
     <div className="flex flex-1 flex-col bg-background text-foreground font-sans">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
-          <a href="#top" className="text-lg font-semibold tracking-tight">
-            {BRAND.name}
-          </a>
-          <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-            {NAV.map((item) => (
-              <a key={item.href} href={item.href} className="transition-colors hover:text-foreground">
-                {item.label}
-              </a>
-            ))}
-          </nav>
-          <a
-            href={PHONE_HREF}
-            className="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-transform active:scale-[0.98]"
-          >
-            Réserver
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main id="top" className="flex flex-1 flex-col">
         {/* Hero */}
