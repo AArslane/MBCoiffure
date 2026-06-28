@@ -3,6 +3,8 @@
 // Photos are grayscale placeholders — swap the `image`/`gallery` URLs for the
 // real Google Business photos when available.
 
+export const CAL_USERNAME = "arslane";
+
 export const PHONE = "07 69 63 23 77";
 export const PHONE_HREF = "tel:+33769632377";
 
@@ -15,6 +17,7 @@ export type Service = {
   title: string;
   description: string;
   price: string;
+  calSlug: string;
 };
 
 export const SERVICES: Service[] = [
@@ -23,18 +26,21 @@ export const SERVICES: Service[] = [
     description:
       "La coupe et la taille de barbe dans la même séance. Dégradé net, contours précis, finitions soignées.",
     price: "25 €",
+    calSlug: "coiffure-barbe",
   },
   {
     title: "Coiffure",
     description:
       "Coupe homme sur mesure, du classique au dégradé moderne. Lavage, coupe et coiffage compris.",
     price: "20 €",
+    calSlug: "coiffure",
   },
   {
     title: "Barbe",
     description:
       "Taille et entretien de la barbe au rasoir : contours dessinés, longueur maîtrisée, finition nette.",
     price: "10 €",
+    calSlug: "barbe",
   },
 ];
 
