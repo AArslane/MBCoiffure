@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import { SERVICES } from '@/lib/site';
 
 export function Services() {
-  const [selectedSlug, setSelectedSlug] = useState(SERVICES[0].calSlug);
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
 
   function handleReserver(slug: string) {
@@ -130,16 +130,11 @@ export function Services() {
           </motion.div>
         </div>
 
-        <motion.div
-          ref={calendarRef}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-          className="scroll-mt-24"
-        >
-          <Booking calSlug={selectedSlug} />
-        </motion.div>
+        {selectedSlug && (
+          <div ref={calendarRef} className="scroll-mt-24">
+            <Booking calSlug={selectedSlug} />
+          </div>
+        )}
       </div>
     </section>
   );
