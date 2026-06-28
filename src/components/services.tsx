@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, ShieldCheck } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -9,10 +10,17 @@ import { Booking } from '@/components/booking';
 import { cn } from '@/lib/utils';
 import { SERVICES } from '@/lib/site';
 
-// Prestations section — inspired by the single-pricing-card layout (framed block,
-// "+" corners, quadrille background, animated BorderTrail on the featured item,
-// badges, shield trust line). Adapted for the barbershop: no prices.
 export function Services() {
+  const [selectedSlug, setSelectedSlug] = useState(SERVICES[0].calSlug);
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  function handleReserver(slug: string) {
+    setSelectedSlug(slug);
+    setTimeout(() => {
+      calendarRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+
   return (
     <section
       id="services"
@@ -106,9 +114,9 @@ export function Services() {
                     <Button
                       className="mt-4 w-full"
                       variant={featured ? 'default' : 'outline'}
-                      asChild
+                      onClick={() => handleReserver(service.calSlug)}
                     >
-                      <a href="#services">Réserver</a>
+                      Réserver
                     </Button>
                   </div>
                 );
@@ -123,13 +131,14 @@ export function Services() {
         </div>
 
         <motion.div
+          ref={calendarRef}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="mt-16"
+          className="scroll-mt-24"
         >
-          <Booking />
+          <Booking calSlug={selectedSlug} />
         </motion.div>
       </div>
     </section>
