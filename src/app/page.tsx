@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Booking } from "@/components/booking";
 import { Reveal } from "@/components/reveal";
 import { Services } from "@/components/services";
 import { SiteHeader } from "@/components/site-header";
@@ -37,7 +38,7 @@ function ArrowUpRight({ className = "" }: { className?: string }) {
   );
 }
 
-const totalReviews = LOCATIONS.reduce((n, l) => n + l.reviews, 0);
+const salon = LOCATIONS[0];
 
 export default function Home() {
   return (
@@ -48,12 +49,12 @@ export default function Home() {
       <main id="top" className="flex flex-1 flex-col">
         {/* Hero */}
         <HeroSection
-          title="La coupe et la barbe, sans rendez-vous."
-          subtitle="Deux salons à Toulouse, ouverts tous les jours. Dégradés nets, barbe au cordeau, finitions soignées — par des barbiers qui aiment leur métier."
-          primaryButtonText={`Réserver au ${PHONE}`}
-          primaryButtonHref={PHONE_HREF}
-          secondaryButtonText="Voir les salons"
-          secondaryButtonHref="#salons"
+          title="Réservez votre coupe en ligne."
+          subtitle="Coiffeur barbier à Toulouse, ouvert tous les jours. Dégradés nets, barbe au cordeau, finitions soignées — choisissez votre créneau en quelques secondes."
+          primaryButtonText="Réserver en ligne"
+          primaryButtonHref="#reservation"
+          secondaryButtonText="Nos prestations"
+          secondaryButtonHref="#services"
           imageUrl="https://picsum.photos/seed/am-mb-hero/2000/1300?grayscale"
         />
 
@@ -61,10 +62,10 @@ export default function Home() {
         <section className="border-y border-border bg-secondary/40">
           <div className="mx-auto grid w-full max-w-6xl grid-cols-2 divide-x divide-border px-5 sm:px-8 md:grid-cols-4">
             {[
-              { k: "2", v: "salons à Toulouse" },
-              { k: "7j/7", v: "ouverts tous les jours" },
-              { k: `${totalReviews}`, v: "avis Google" },
-              { k: "Sans RDV", v: "passez quand vous voulez" },
+              { k: salon.rating.toLocaleString("fr-FR"), v: "note Google ★" },
+              { k: `${salon.reviews}`, v: "avis clients" },
+              { k: "7j/7", v: "ouvert tous les jours" },
+              { k: "En ligne", v: "réservation en quelques clics" },
             ].map((s, i) => (
               <div key={i} className="px-4 py-8 text-center">
                 <div className="text-2xl font-semibold tracking-tight sm:text-3xl">{s.k}</div>
@@ -74,78 +75,92 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Salons */}
+        {/* Salon */}
         <section id="salons" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
           <Reveal className="max-w-2xl">
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-brand">Nos salons</p>
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-brand">Le salon</p>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Deux adresses, le même soin du détail.
+              Une adresse, un vrai soin du détail.
             </h2>
           </Reveal>
 
-          <div className="mt-14 grid gap-8 md:grid-cols-2">
-            {LOCATIONS.map((loc, i) => (
-              <Reveal key={loc.id} delay={i * 100}>
-                <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card">
-                  <div className="relative aspect-[16/11] overflow-hidden">
-                    <Image
-                      src={loc.image}
-                      alt={`Salon ${loc.name} à Toulouse`}
-                      fill
-                      sizes="(min-width: 768px) 45vw, 100vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col p-7">
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="text-2xl font-semibold tracking-tight">{loc.name}</h3>
-                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-xs font-medium">
-                        <Star className="size-3 text-brand" />
-                        {loc.rating.toLocaleString("fr-FR")}
-                        <span className="text-muted-foreground">({loc.reviews})</span>
-                      </span>
-                    </div>
+          <Reveal className="mt-14">
+            <article className="group grid overflow-hidden rounded-xl border border-border bg-card md:grid-cols-2">
+              <div className="relative aspect-[16/11] overflow-hidden md:aspect-auto md:min-h-[440px]">
+                <Image
+                  src={salon.image}
+                  alt={`Salon ${salon.name} à Toulouse`}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="flex flex-col p-7 sm:p-10">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-2xl font-semibold tracking-tight">{salon.name}</h3>
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-xs font-medium">
+                    <Star className="size-3 text-brand" />
+                    {salon.rating.toLocaleString("fr-FR")}
+                    <span className="text-muted-foreground">({salon.reviews})</span>
+                  </span>
+                </div>
 
-                    <div className="mt-5 flex items-start gap-2.5 text-sm">
-                      <Pin className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-                      <span>
-                        {loc.street}
-                        <br />
-                        {loc.city}
-                      </span>
-                    </div>
+                <div className="mt-5 flex items-start gap-2.5 text-sm">
+                  <Pin className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+                  <span>
+                    {salon.street}
+                    <br />
+                    {salon.city}
+                  </span>
+                </div>
 
-                    <div className="mt-4 flex items-baseline justify-between border-t border-border pt-4 text-sm">
-                      <span className="text-muted-foreground">{loc.hoursNote}</span>
-                      <span className="font-medium">{loc.hours}</span>
-                    </div>
+                <div className="mt-4 flex items-baseline justify-between border-t border-border pt-4 text-sm">
+                  <span className="text-muted-foreground">{salon.hoursNote}</span>
+                  <span className="font-medium">{salon.hours}</span>
+                </div>
 
-                    <div className="mt-6 flex flex-wrap gap-3 pt-1">
-                      <a
-                        href={PHONE_HREF}
-                        className="inline-flex h-10 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-transform active:scale-[0.98]"
-                      >
-                        Réserver
-                      </a>
-                      <a
-                        href={loc.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex h-10 items-center gap-1.5 rounded-md border border-border px-4 text-sm font-medium transition-colors hover:bg-secondary"
-                      >
-                        Itinéraire
-                        <ArrowUpRight className="size-4" />
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+                <div className="mt-6 flex flex-wrap gap-3 pt-1">
+                  <a
+                    href="#reservation"
+                    className="inline-flex h-11 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-transform active:scale-[0.98]"
+                  >
+                    Réserver
+                  </a>
+                  <a
+                    href={salon.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-11 items-center gap-1.5 rounded-md border border-border px-4 text-sm font-medium transition-colors hover:bg-secondary"
+                  >
+                    Itinéraire
+                    <ArrowUpRight className="size-4" />
+                  </a>
+                </div>
+              </div>
+            </article>
+          </Reveal>
         </section>
 
         {/* Services */}
         <Services />
+
+        {/* Réservation */}
+        <section id="reservation" className="mx-auto w-full max-w-6xl scroll-mt-20 px-5 py-24 sm:px-8 sm:py-32">
+          <Reveal className="max-w-2xl">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-brand">Réservation</p>
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Choisissez votre créneau.
+            </h2>
+            <p className="mt-4 text-sm text-muted-foreground md:text-base">
+              Sélectionnez le jour et l&apos;heure qui vous arrangent. Vous recevez
+              une confirmation immédiate — pas d&apos;attente, pas d&apos;appel.
+            </p>
+          </Reveal>
+
+          <Reveal className="mt-12">
+            <Booking />
+          </Reveal>
+        </section>
 
         {/* Avis */}
         <section id="avis" className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
@@ -205,18 +220,26 @@ export default function Home() {
           <div className="mx-auto flex w-full max-w-6xl flex-col items-start gap-8 px-5 py-20 sm:px-8 sm:py-24 lg:flex-row lg:items-center lg:justify-between">
             <Reveal>
               <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-                Pas besoin de rendez-vous.
+                Votre créneau vous attend.
                 <br />
-                <span className="font-serif italic font-normal opacity-80">Passez nous voir.</span>
+                <span className="font-serif italic font-normal opacity-80">Réservez en ligne.</span>
               </h2>
             </Reveal>
             <Reveal delay={100}>
-              <a
-                href={PHONE_HREF}
-                className="inline-flex h-12 items-center rounded-md bg-background px-6 text-sm font-medium text-foreground transition-transform active:scale-[0.98]"
-              >
-                Appeler le {PHONE}
-              </a>
+              <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                <a
+                  href="#reservation"
+                  className="inline-flex h-12 items-center rounded-md bg-background px-6 text-sm font-medium text-foreground transition-transform active:scale-[0.98]"
+                >
+                  Réserver en ligne
+                </a>
+                <a
+                  href={PHONE_HREF}
+                  className="text-sm font-medium opacity-80 transition-opacity hover:opacity-100"
+                >
+                  ou appelez le {PHONE}
+                </a>
+              </div>
             </Reveal>
           </div>
         </section>
@@ -228,8 +251,8 @@ export default function Home() {
           <div>
             <div className="text-lg font-semibold tracking-tight">{BRAND.name}</div>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Coiffeur barbier à Toulouse. Deux salons, ouverts tous les jours,
-              sans rendez-vous.
+              Coiffeur barbier à Toulouse. Ouvert tous les jours,
+              réservation en ligne.
             </p>
             <a href={PHONE_HREF} className="mt-4 inline-block text-sm font-medium hover:text-brand">
               {PHONE}

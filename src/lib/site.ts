@@ -7,31 +7,34 @@ export const PHONE = "07 69 63 23 77";
 export const PHONE_HREF = "tel:+33769632377";
 
 export const BRAND = {
-  name: "AM · MB",
+  name: "Coiffeur MB 31",
   tagline: "Coiffeur · Barbier · Toulouse",
 } as const;
 
 export type Service = {
   title: string;
   description: string;
+  price: string;
 };
 
-// No prices, per the owner's request.
 export const SERVICES: Service[] = [
   {
     title: "Coiffure + barbe",
     description:
       "La coupe et la taille de barbe dans la même séance. Dégradé net, contours précis, finitions soignées.",
+    price: "25 €",
   },
   {
     title: "Coiffure",
     description:
       "Coupe homme sur mesure, du classique au dégradé moderne. Lavage, coupe et coiffage compris.",
+    price: "20 €",
   },
   {
-    title: "Tarif étudiant",
+    title: "Barbe",
     description:
-      "Le même savoir-faire à prix réduit sur présentation de la carte étudiante. Sans rendez-vous.",
+      "Taille et entretien de la barbe au rasoir : contours dessinés, longueur maîtrisée, finition nette.",
+    price: "10 €",
   },
 ];
 
@@ -64,18 +67,6 @@ export const LOCATIONS: Location[] = [
     mapsUrl: mapsQuery("Coiffeur MB 31, 2 Chemin de Nicol, 31200 Toulouse"),
     image: "https://picsum.photos/seed/mb31-salon/1200/1500?grayscale",
   },
-  {
-    id: "am-coiffeur",
-    name: "Am Coiffeur",
-    street: "75 Rue Louis Plana",
-    city: "31500 Toulouse",
-    hours: "10h – 19h",
-    hoursNote: "Tous les jours, 7j/7",
-    rating: 4.3,
-    reviews: 80,
-    mapsUrl: mapsQuery("Am Coiffeur, 75 Rue Louis Plana, 31500 Toulouse"),
-    image: "https://picsum.photos/seed/am-coiffeur-salon/1200/1500?grayscale",
-  },
 ];
 
 export type Testimonial = {
@@ -93,21 +84,9 @@ export const TESTIMONIALS: Testimonial[] = [
     salon: "Coiffeur MB 31",
   },
   {
-    quote:
-      "Très bon salon de coiffure. Sympa, disponible, du savoir-faire et très professionnel. Je recommande.",
-    author: "Mickael Francisco",
-    salon: "Am Coiffeur",
-  },
-  {
     quote: "Prestation pro. Très satisfait du service.",
     author: "Ma Nu",
     salon: "Coiffeur MB 31",
-  },
-  {
-    quote:
-      "Ce salon est top, surtout avec les gars qui y travaillent : ils sont professionnels et j'adore le résultat.",
-    author: "Aymen Dammar",
-    salon: "Am Coiffeur",
   },
 ];
 

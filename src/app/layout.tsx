@@ -20,9 +20,9 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "AM · MB — Coiffeur Barbier à Toulouse",
+  title: "Coiffeur MB 31 — Coiffeur Barbier à Toulouse",
   description:
-    "Coiffure et barbe par AM Coiffeur et Coiffeur MB 31. Deux salons à Toulouse, ouverts tous les jours, sans rendez-vous.",
+    "Coiffeur MB 31 : coiffure et barbe à Toulouse, ouvert tous les jours. Réservez votre coupe en ligne en quelques secondes.",
 };
 
 export default function RootLayout({

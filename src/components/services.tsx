@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { BorderTrail } from '@/components/ui/border-trail';
 import { cn } from '@/lib/utils';
-import { PHONE_HREF, SERVICES } from '@/lib/site';
+import { SERVICES } from '@/lib/site';
 
 // Prestations section — inspired by the single-pricing-card layout (framed block,
 // "+" corners, quadrille background, animated BorderTrail on the featured item,
@@ -34,8 +34,8 @@ export function Services() {
             Ce qu&apos;on fait, on le fait bien.
           </h2>
           <p className="text-sm text-muted-foreground md:text-base">
-            Coupe, barbe, finitions — le même savoir-faire dans nos deux salons.
-            Sans rendez-vous, paiement en salon.
+            Coupe, barbe, finitions — un savoir-faire net, à prix clair.
+            Réservez en ligne, paiement en salon.
           </p>
         </motion.div>
 
@@ -88,11 +88,7 @@ export function Services() {
                       <span className="font-mono text-sm text-muted-foreground">
                         0{i + 1}
                       </span>
-                      {featured ? (
-                        <Badge>Le + demandé</Badge>
-                      ) : i === 2 ? (
-                        <Badge variant="secondary">Étudiants</Badge>
-                      ) : null}
+                      {featured ? <Badge>Le + demandé</Badge> : null}
                     </div>
 
                     <h3 className="mt-4 text-xl font-semibold tracking-tight">
@@ -102,12 +98,16 @@ export function Services() {
                       {service.description}
                     </p>
 
+                    <div className="mt-6 font-mono text-3xl font-semibold tracking-tight">
+                      {service.price}
+                    </div>
+
                     <Button
-                      className="mt-6 w-full"
+                      className="mt-4 w-full"
                       variant={featured ? 'default' : 'outline'}
                       asChild
                     >
-                      <a href={PHONE_HREF}>Réserver</a>
+                      <a href="#reservation">Réserver</a>
                     </Button>
                   </div>
                 );
@@ -116,7 +116,7 @@ export function Services() {
 
             <div className="flex items-center justify-center gap-x-2 text-sm text-muted-foreground">
               <ShieldCheck className="size-4 text-brand" />
-              <span>Sans rendez-vous · Tarifs communiqués en salon</span>
+              <span>Réservation en ligne · Paiement en salon</span>
             </div>
           </motion.div>
         </div>
