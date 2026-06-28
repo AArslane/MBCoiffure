@@ -26,14 +26,14 @@ export const SERVICES: Service[] = [
     description:
       "La coupe et la taille de barbe dans la même séance. Dégradé net, contours précis, finitions soignées.",
     price: "25 €",
-    calSlug: "coiffure-barbe",
+    calSlug: "coupe-barbe",
   },
   {
     title: "Coiffure",
     description:
       "Coupe homme sur mesure, du classique au dégradé moderne. Lavage, coupe et coiffage compris.",
     price: "20 €",
-    calSlug: "coiffure",
+    calSlug: "30min",
   },
   {
     title: "Barbe",
